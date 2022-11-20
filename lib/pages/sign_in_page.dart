@@ -1,5 +1,3 @@
-import 'package:echom_frontend/pages/home/home_page.dart';
-import 'package:echom_frontend/pages/home/main_page.dart';
 import 'package:echom_frontend/providers/auth_provider.dart';
 import 'package:echom_frontend/theme.dart';
 import 'package:echom_frontend/widgets/loading_button.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage();
+  const SignInPage({super.key});
 
   @override
   State<SignInPage> createState() => _SignInPageState();

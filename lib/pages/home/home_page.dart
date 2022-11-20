@@ -1,3 +1,4 @@
+import 'package:echom_frontend/providers/category_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:echom_frontend/models/user_model.dart';
@@ -15,10 +16,12 @@ class HomePage extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
-    print("ini data product ${productProvider}");
+    CategoryProvider categoryProvider = Provider.of<CategoryProvider>(context);
+
+    // print("ini data product ${productProvider}");
     final products =
         Provider.of<ProductProvider>(context, listen: false).getProducts();
-    print('get langsung dari provider ${products}');
+    // print('get langsung dari provider ${products}');
     // print(productProvider.products);
 
     Widget header() {
@@ -90,7 +93,7 @@ class HomePage extends StatelessWidget {
                   color: primaryColor,
                 ),
                 child: Text(
-                  'All Shoes',
+                  'Semua Barang',
                   style: primaryTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -111,7 +114,7 @@ class HomePage extends StatelessWidget {
                   color: transparentColor,
                 ),
                 child: Text(
-                  'Running',
+                  '${categoryProvider.categories[0].name}',
                   style: subtitleTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -132,7 +135,7 @@ class HomePage extends StatelessWidget {
                   color: transparentColor,
                 ),
                 child: Text(
-                  'Training',
+                  '${categoryProvider.categories[1].name}',
                   style: subtitleTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -153,28 +156,7 @@ class HomePage extends StatelessWidget {
                   color: transparentColor,
                 ),
                 child: Text(
-                  'Basketball',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Hiking',
+                  '${categoryProvider.categories[2].name}',
                   style: subtitleTextStyle.copyWith(
                     fontSize: 13,
                     fontWeight: medium,
@@ -195,7 +177,7 @@ class HomePage extends StatelessWidget {
           right: defaultMargin,
         ),
         child: Text(
-          'Popular Products',
+          'Barang Populer',
           style: primaryTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semiBold,
@@ -235,7 +217,7 @@ class HomePage extends StatelessWidget {
           right: defaultMargin,
         ),
         child: Text(
-          'New Arrivals',
+          'Barang Terbaru',
           style: primaryTextStyle.copyWith(
             fontSize: 22,
             fontWeight: semiBold,

@@ -2,6 +2,7 @@ import 'package:echom_frontend/pages/home/chat_page.dart';
 import 'package:echom_frontend/pages/home/home_page.dart';
 import 'package:echom_frontend/pages/home/profile_page.dart';
 import 'package:echom_frontend/pages/home/wishlist_page.dart';
+import 'package:echom_frontend/pages/transcation_page.dart';
 import 'package:echom_frontend/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -63,9 +64,15 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                 icon: Container(
                   margin: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Image.asset(
-                    'assets/icon_chat.png',
-                    width: 20,
+                  // child: Image.asset(
+                  //   'assets/icon_chat.png',
+                  //   width: 20,
+                  //   color: currentIndex == 1
+                  //       ? primaryColor
+                  //       : const Color(0xff808191),
+                  // ),
+                  child: Icon(
+                    Icons.shopping_cart_checkout_outlined,
                     color: currentIndex == 1
                         ? primaryColor
                         : const Color(0xff808191),
@@ -110,7 +117,7 @@ class _MainPageState extends State<MainPage> {
         case 0:
           return const HomePage();
         case 1:
-          return const ChatPage();
+          return TransactionPage();
         case 2:
           return const WishlistPage();
         case 3:

@@ -4,16 +4,64 @@ import 'package:echom_frontend/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditProfilePage extends StatelessWidget {
-  const EditProfilePage();
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
 
   @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  @override
   Widget build(BuildContext context) {
-    // Widget header() {
-    //   return AppBar();
-    // }
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
+
+    TextEditingController nameController =
+        TextEditingController(text: user.name);
+    TextEditingController usernameController =
+        TextEditingController(text: user.username);
+    TextEditingController emailController =
+        TextEditingController(text: user.email);
+    TextEditingController alamatController =
+        TextEditingController(text: user.alamat);
+
+    bool isLoading = false;
+
+    handleUpdateProfile() async {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.updateProfile(
+        token: authProvider.user.token ?? '',
+        name: nameController.text,
+        username: usernameController.text,
+        email: emailController.text,
+        alamat: alamatController.text,
+      )) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('Berhasil mengubah profil'),
+          ),
+        );
+
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/sign-in', (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Gagal mengubah profil'),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
 
     Widget nameInput() {
       return Container(
@@ -22,13 +70,14 @@ class EditProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Name',
+              'Nama',
               style: secondaryTextStyle.copyWith(
                 fontSize: 13,
               ),
             ),
             TextFormField(
               style: primaryTextStyle,
+              controller: nameController,
               decoration: InputDecoration(
                 hintText: user.name,
                 hintStyle: primaryTextStyle,
@@ -58,6 +107,7 @@ class EditProfilePage extends StatelessWidget {
             ),
             TextFormField(
               style: primaryTextStyle,
+              controller: usernameController,
               decoration: InputDecoration(
                 hintText: '@${user.username}',
                 hintStyle: primaryTextStyle,
@@ -87,6 +137,7 @@ class EditProfilePage extends StatelessWidget {
             ),
             TextFormField(
               style: primaryTextStyle,
+              controller: emailController,
               decoration: InputDecoration(
                 hintText: user.email,
                 hintStyle: primaryTextStyle,
@@ -98,6 +149,44 @@ class EditProfilePage extends StatelessWidget {
               ),
             )
           ],
+        ),
+      );
+    }
+
+    Widget alamatInput() {
+      return Container(
+        margin: const EdgeInsets.only(top: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Alamat',
+              style: secondaryTextStyle.copyWith(
+                fontSize: 13,
+              ),
+            ),
+            TextFormField(
+              style: primaryTextStyle,
+              controller: alamatController,
+              decoration: InputDecoration(
+                hintText: user.alamat,
+                hintStyle: primaryTextStyle,
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: subtitleColor,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget loading() {
+      return Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(primaryColor),
         ),
       );
     }
@@ -130,6 +219,8 @@ class EditProfilePage extends StatelessWidget {
             nameInput(),
             usernameInput(),
             emailInput(),
+            alamatInput(),
+            // loading(),
           ],
         ),
       );
@@ -152,7 +243,9 @@ class EditProfilePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              handleUpdateProfile();
+            },
             icon: Icon(
               Icons.check,
               color: primaryColor,
@@ -160,7 +253,7 @@ class EditProfilePage extends StatelessWidget {
           ),
         ],
       ),
-      body: content(),
+      body: isLoading ? loading() : content(),
       resizeToAvoidBottomInset: false,
     );
   }

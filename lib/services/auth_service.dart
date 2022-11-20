@@ -4,7 +4,7 @@ import 'package:echom_frontend/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = 'http://172.12.17.100:8000/api';
+  String baseUrl = 'https://ayam.itjurnalis.com/api';
 
   Future<UserModel> register({
     String? name,
@@ -69,6 +69,41 @@ class AuthService {
       return user;
     } else {
       throw Exception('Failed to login');
+    }
+  }
+
+  Future<UserModel> updateProfile(
+      {required String token,
+      String? name,
+      String? username,
+      String? email,
+      String? alamat}) async {
+    var url = Uri.parse("$baseUrl/user");
+    var header = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+
+    var body = jsonEncode({
+      //
+      'name': name,
+      'username': username,
+      'email': email,
+      'alamat': alamat,
+    });
+
+    var response = await http.post(
+      url,
+      headers: header,
+      body: body,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(jsonDecode(response.body)['data']);
+    } else {
+      throw Exception('Failed to update profile');
     }
   }
 }

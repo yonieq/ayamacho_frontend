@@ -7,8 +7,11 @@ import 'package:echom_frontend/pages/home/main_page.dart';
 import 'package:echom_frontend/pages/sign_in_page.dart';
 import 'package:echom_frontend/pages/sign_up_page.dart';
 import 'package:echom_frontend/pages/splash_page.dart';
+import 'package:echom_frontend/pages/transcation_page.dart';
 import 'package:echom_frontend/providers/auth_provider.dart';
 import 'package:echom_frontend/providers/cart_provider.dart';
+import 'package:echom_frontend/providers/category_provider.dart';
+import 'package:echom_frontend/providers/order_provider.dart';
 import 'package:echom_frontend/providers/product_provider.dart';
 import 'package:echom_frontend/providers/transaction_provider.dart';
 import 'package:echom_frontend/services/wishlist_provider.dart';
@@ -42,6 +45,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => TransactionProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OrderProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -58,6 +67,7 @@ class MyApp extends StatelessWidget {
           '/cart': (context) => const CartPage(),
           '/checkout': (context) => const CheckoutPage(),
           '/checkout-success': (context) => const CheckoutSuccessPage(),
+          '/transaction': (context) => const TransactionPage(),
         },
       ),
     );

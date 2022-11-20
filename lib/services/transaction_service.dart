@@ -1,10 +1,21 @@
 import 'dart:convert';
 import 'package:echom_frontend/models/cart_model.dart';
-import 'package:echom_frontend/models/product_model.dart';
+import 'package:echom_frontend/providers/auth_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class TransactionService {
-  String baseUrl = "http://172.12.17.100:8000/api";
+  // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+  late AuthProvider authProvider;
+  final BuildContext context;
+  TransactionService({required this.context}) {
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
+  }
+  // UserModel user = authProvider.user;
+  // AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+  String baseUrl = "https://ayam.itjurnalis.com/api";
 
   Future<bool> checkout(
       String token, List<CartModel> carts, double totalPrice) async {
@@ -15,7 +26,8 @@ class TransactionService {
     };
 
     var body = jsonEncode({
-      'address': 'Talang',
+      //
+      'address': authProvider.user.alamat,
       'items': carts
           .map(
             (cart) => {'id': cart.product!.id, 'quantity': cart.quantity},
@@ -32,7 +44,7 @@ class TransactionService {
       body: body,
     );
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 200) {
       return true;

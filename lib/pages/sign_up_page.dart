@@ -407,22 +407,32 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor1,
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              nameInput(),
-              usernameInput(),
-              emailInput(),
-              alamatInput(),
-              passwordInput(),
-              isLoading ? const LoadingButton() : signUpButton(),
-              const Spacer(),
-              footer(),
-            ],
+      body: Scaffold(
+        backgroundColor: backgroundColor1,
+        body: SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+            child: ListView(
+              children: [
+                header(),
+                const SizedBox(
+                  height: 30,
+                ),
+                nameInput(),
+                usernameInput(),
+                emailInput(),
+                alamatInput(),
+                passwordInput(),
+                const SizedBox(
+                  height: 30,
+                ),
+                signUpButton(),
+                const SizedBox(
+                  height: 30,
+                ),
+                footer(),
+              ],
+            ),
           ),
         ),
       ),

@@ -168,9 +168,12 @@ class _ProductPageState extends State<ProductPage> {
                     Icons.chevron_left,
                   ),
                 ),
-                Icon(
-                  Icons.shopping_bag,
-                  color: backgroundColor1,
+                GestureDetector(
+                  onTap: (() => Navigator.pushNamed(context, '/cart')),
+                  child: Icon(
+                    Icons.shopping_bag,
+                    color: backgroundColor1,
+                  ),
                 ),
               ],
             ),
@@ -302,7 +305,7 @@ class _ProductPageState extends State<ProductPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Price starts from',
+                    'Harga',
                     style: primaryTextStyle,
                   ),
                   Text(
@@ -326,7 +329,7 @@ class _ProductPageState extends State<ProductPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Description',
+                    'Keterangan',
                     style: primaryTextStyle.copyWith(
                       fontWeight: medium,
                     ),
@@ -355,7 +358,7 @@ class _ProductPageState extends State<ProductPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                     child: Text(
-                      'Familiar Shoes',
+                      'Tentang Produk',
                       style: primaryTextStyle.copyWith(fontWeight: medium),
                     ),
                   ),
@@ -366,14 +369,24 @@ class _ProductPageState extends State<ProductPage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        ...familiarShoes.map((image) {
-                          index++;
-                          return Container(
-                            margin: EdgeInsets.only(
-                                left: index == 0 ? defaultMargin : 0),
-                            child: familiarShoesCard(image),
-                          );
-                        }).toList(),
+                        Container(
+                          margin: EdgeInsets.only(
+                            left: defaultMargin,
+                          ),
+                          child: Row(
+                            children: widget.product.galleries!.map((e) {
+                              index++;
+                              return Container(
+                                margin: const EdgeInsets.only(right: 2),
+                                child: Image.network(
+                                  e.url!,
+                                  width: 80,
+                                  height: 80,
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -390,18 +403,18 @@ class _ProductPageState extends State<ProductPage> {
                 },
                 child: Row(
                   children: [
-                    Container(
-                      width: 54,
-                      height: 54,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/button_chat.png'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
+                    // Container(
+                    //   width: 54,
+                    //   height: 54,
+                    //   decoration: const BoxDecoration(
+                    //     image: DecorationImage(
+                    //       image: AssetImage('assets/button_chat.png'),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   width: 16,
+                    // ),
                     Expanded(
                       child: Container(
                         height: 54,
@@ -417,7 +430,7 @@ class _ProductPageState extends State<ProductPage> {
                             backgroundColor: primaryColor,
                           ),
                           child: Text(
-                            'Add to Cart',
+                            'Tambahkan ke Keranjang',
                             style: primaryTextStyle.copyWith(
                               fontSize: 16,
                               fontWeight: semiBold,

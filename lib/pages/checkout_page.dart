@@ -30,9 +30,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
       });
 
       if (await transactionProvider.checkout(
-        authProvider.user.token!,
-        cartProvider.carts,
-        cartProvider.totalPrice(),
+        // authProvider.user.token,
+        carts: cartProvider.carts,
+        totalPrice: cartProvider.totalPrice(),
+        context: context,
+        token: authProvider.user.token ?? '',
       )) {
         cartProvider.carts = [];
         Navigator.pushNamedAndRemoveUntil(

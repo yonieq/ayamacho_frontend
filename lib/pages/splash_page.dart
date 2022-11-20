@@ -1,12 +1,12 @@
-import 'dart:async';
-
+import 'package:echom_frontend/providers/category_provider.dart';
+import 'package:echom_frontend/providers/order_provider.dart';
 import 'package:echom_frontend/providers/product_provider.dart';
 import 'package:echom_frontend/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage();
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -22,6 +22,8 @@ class _SplashPageState extends State<SplashPage> {
 
   getInit() async {
     await Provider.of<ProductProvider>(context, listen: false).getProducts();
+    // ignore: use_build_context_synchronously
+    await Provider.of<CategoryProvider>(context, listen: false).getCategories();
     // ignore: use_build_context_synchronously
     Navigator.pushNamedAndRemoveUntil(
       context,

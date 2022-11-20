@@ -115,7 +115,9 @@ class ProfilePage extends StatelessWidget {
               GestureDetector(
                   child: menuItem('Edit Profile'),
                   onTap: () => Navigator.pushNamed(context, '/edit-profile')),
-              menuItem('Your Orders'),
+              GestureDetector(
+                  child: menuItem('Your Orders'),
+                  onTap: () => Navigator.pushNamed(context, '/transaction')),
               menuItem('Help'),
               const SizedBox(
                 height: 30,

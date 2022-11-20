@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 
 class TransactionProvider extends ChangeNotifier {
   Future<bool> checkout(
-      String token, List<CartModel> carts, double totalPrice) async {
+      {required String token,
+      required List<CartModel> carts,
+      required double totalPrice,
+      required BuildContext context}) async {
     try {
-      await TransactionService().checkout(token, carts, totalPrice);
+      await TransactionService(context: context)
+          .checkout(token, carts, totalPrice);
       return true;
     } catch (e) {
       print(e);
