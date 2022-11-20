@@ -66,7 +66,11 @@ class OrderCard extends StatelessWidget {
                     Text(
                       'Pembayaran : ${order.payment}',
                       style: primaryTextStyle,
-                    )
+                    ),
+                    Text(
+                      'Catatan : ${order.catatan}',
+                      style: primaryTextStyle,
+                    ),
                   ],
                 ),
               ),

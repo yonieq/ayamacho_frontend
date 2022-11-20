@@ -7,10 +7,11 @@ class TransactionProvider extends ChangeNotifier {
       {required String token,
       required List<CartModel> carts,
       required double totalPrice,
+      required String catatan,
       required BuildContext context}) async {
     try {
       await TransactionService(context: context)
-          .checkout(token, carts, totalPrice);
+          .checkout(token, carts, totalPrice, catatan);
       return true;
     } catch (e) {
       print(e);

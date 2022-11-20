@@ -17,6 +17,8 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   bool isLoading = false;
 
+  TextEditingController catatanController = TextEditingController(text: '');
+
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
@@ -35,6 +37,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         totalPrice: cartProvider.totalPrice(),
         context: context,
         token: authProvider.user.token ?? '',
+        catatan: catatanController.text,
       )) {
         cartProvider.carts = [];
         Navigator.pushNamedAndRemoveUntil(
@@ -89,7 +92,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Address Details',
+                  'Detail Alamat',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,
@@ -265,6 +268,40 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                   ],
+                ),
+              ],
+            ),
+          ),
+          // input text catatan
+          Container(
+            margin: EdgeInsets.only(
+              top: defaultMargin,
+            ),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: backgroundColor4,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Catatan',
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 16,
+                    fontWeight: medium,
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TextFormField(
+                  controller: catatanController,
+                  decoration: InputDecoration.collapsed(
+                    hintText: 'Tambahkan catatan untuk penjual',
+                    hintStyle: subtitleTextStyle,
+                  ),
+                  style: primaryTextStyle,
                 ),
               ],
             ),

@@ -9,6 +9,7 @@ class OrderModel {
   String? status;
   String? payment;
   String? Address;
+  String? catatan;
   List<ProductModel>? products;
 
   OrderModel({
@@ -20,6 +21,7 @@ class OrderModel {
     this.payment,
     this.Address,
     this.products,
+    this.catatan,
   });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class OrderModel {
     status = json['status'];
     payment = json['payment'];
     Address = json['address'];
+    catatan = json['catatan'];
     products = json['products']
         .map<ProductModel>((product) => ProductModel.fromJson(product))
         .toList();
@@ -46,6 +49,7 @@ class OrderModel {
     data['status'] = status;
     data['payment'] = payment;
     data['address'] = Address;
+    data['catatan'] = catatan;
     data['products'] = products;
     return data;
   }

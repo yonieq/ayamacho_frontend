@@ -17,8 +17,8 @@ class TransactionService {
 
   String baseUrl = "https://ayam.itjurnalis.com/api";
 
-  Future<bool> checkout(
-      String token, List<CartModel> carts, double totalPrice) async {
+  Future<bool> checkout(String token, List<CartModel> carts, double totalPrice,
+      String catatan) async {
     var url = Uri.parse("$baseUrl/checkout");
     var header = {
       'Content-Type': 'application/json',
@@ -36,6 +36,7 @@ class TransactionService {
       'status': 'PENDING',
       'total_price': totalPrice,
       'shipping_price': 10000,
+      'catatan': catatan,
     });
 
     var response = await http.post(
